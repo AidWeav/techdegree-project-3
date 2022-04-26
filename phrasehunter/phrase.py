@@ -5,7 +5,7 @@ class Phrase:
         
     def display(self, guesses): 
         self.hidden_phrase = []
-        blank = "_ "
+        blank = "_"
         for letter in self.active_phrase:
             if letter in guesses: 
                 self.hidden_phrase.append(letter)
@@ -20,8 +20,8 @@ class Phrase:
     
     def check_complete(self, lives, display_phrase, active_phrase): 
         if lives == 0:
-            return "lose"
+            return "You lose"
         if display_phrase == active_phrase:
-            return "win"
+            return "You won"
         if display_phrase != active_phrase and lives > 0:
             return "incomplete"
