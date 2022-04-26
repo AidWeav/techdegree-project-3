@@ -1,13 +1,22 @@
 from phrasehunter.phrase import Phrase
+
 import random
 
 class Game:
     
+    phrases = [
+        ("Will Smith slaps Chris Rock"),
+        ("Chinese Food"),
+        ("Fried Chicken"),
+        ("Popeyes Biscuit"),
+        ("Fried Noodle"),
+    ]
+    
     def __init__(self):
+        self.phrases = Game.phrases
         self.win = None
         self.lives = 10
         self.missed = 0
-        self.phrases = ["Will Smith slaps Chris Rock", "chinese food", "fried chicken", "popeyes biscuit", "fried noodle"]
         self.active_phrase = None
         self.guesses = []
         
@@ -25,7 +34,7 @@ class Game:
             ready = input("Welcome to PhraseHunters, Want to play (y/n)> ")
             if ready == "y":
                 self.get_guess()
-            elif ready == "n":
+            if ready == "n":
                 print("Goodbye")
                 exit() 
             else:
@@ -35,11 +44,11 @@ class Game:
         guessing = True
         while guessing == True:
             phrase = Phrase(self.active_phrase)
-            self.display_phrase = phrase.display( self.guesses)
+            self.display_phrase = phrase.display(self.guesses)
             check = phrase.check_complete(self.lives, self.display_phrase, self.active_phrase) 
-            if check == "win":
+            if check == "You won":
                 self.game_over(check) 
-            if check == "lose":
+            if check == "You lose":
                 self.game_over(check) 
             if check == "incomplete":
                 print("")
@@ -54,9 +63,10 @@ class Game:
                 self.guesses.append(current_guess)
                 
     def game_over(self, status): 
-        if status == "win":
-            print("Congratulations, you won PhraseHunters")
+        if status == "You lose":
+            print("You lose")
             exit()
-        if status == "lose":
-            print("Unfortunate, try again") 
+        if status == "You won":
+            print("You won")
             exit()
+            
